@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int isPresent(int arr[], int size, int val) {
+    for (int i = 0; i < size; i++)
+        if (arr[i] == val) return 1;
+    return 0;
+}
+
+int main() {
+    int nums[] = {1, 2, 1};
+    int n = 3, sum = 0;
+
+    for (int i = 0; i < n; i++) {
+        int distinct[50], dcount = 0;
+        for (int j = i; j < n; j++) {
+            if (!isPresent(distinct, dcount, nums[j]))
+                distinct[dcount++] = nums[j];
+            sum += dcount * dcount;
+        }
+    }
+
+    printf("Output: %d\n", sum);
+    return 0;
+}

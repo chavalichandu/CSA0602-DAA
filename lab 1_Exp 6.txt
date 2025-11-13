@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Compare function for qsort
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+int main() {
+    int nums[] = {3, 3, 3, 3, 3};   // Change for other test cases
+    int n = sizeof(nums) / sizeof(nums[0]);
+
+    if (n == 0) {
+        printf("List is empty. No maximum element.\n");
+        return 0;
+    }
+
+    // Sort the list
+    qsort(nums, n, sizeof(int), compare);
+
+    // The last element in a sorted array is the maximum
+    printf("Maximum element: %d\n", nums[n - 1]);
+
+    return 0;
+}

@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+
+void largeGroupPositions(char *s) {
+    int n = strlen(s);
+    int start = 0;  // start index of current group
+    
+    for (int i = 0; i < n; i++) {
+        // Check if this is the end of a group
+        if (i == n - 1 || s[i] != s[i + 1]) {
+            int end = i;
+            if (end - start + 1 >= 3)
+                printf("[%d,%d] ", start, end);
+            start = i + 1;  // move to next group
+        }
+    }
+}
+
+int main() {
+    char s1[] = "abbxxxxzzy";
+    char s2[] = "abc";
+
+    printf("Input: %s\nOutput: ", s1);
+    largeGroupPositions(s1);
+    printf("\n\n");
+
+    printf("Input: %s\nOutput: ", s2);
+    largeGroupPositions(s2);
+    printf("\n");
+
+    return 0;
+}

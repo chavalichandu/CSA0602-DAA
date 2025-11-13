@@ -1,0 +1,55 @@
+#include <stdio.h>
+
+#define MOD 1000000007  // to prevent overflow for large counts
+
+int findPaths(int m, int n, int N, int i, int j) {
+    int dp[51][51] = {0}; // current state
+    dp[i][j] = 1;
+    int count = 0;
+
+    for (int step = 1; step <= N; step++) {
+        int temp[51][51] = {0}; // temporary state for next step
+        for (int x = 0; x < m; x++) {
+            for (int y = 0; y < n; y++) {
+                if (dp[x][y] > 0) {
+                    // Up
+                    if (x == 0)
+                        count = (count + dp[x][y]) % MOD;
+                    else
+                        temp[x - 1][y] = (temp[x - 1][y] + dp[x][y]) % MOD;
+                    // Down
+                    if (x == m - 1)
+                        count = (count + dp[x][y]) % MOD;
+                    else
+                        temp[x + 1][y] = (temp[x + 1][y] + dp[x][y]) % MOD;
+                    // Left
+                    if (y == 0)
+                        count = (count + dp[x][y]) % MOD;
+                    else
+                        temp[x][y - 1] = (temp[x][y - 1] + dp[x][y]) % MOD;
+                    // Right
+                    if (y == n - 1)
+                        count = (count + dp[x][y]) % MOD;
+                    else
+                        temp[x][y + 1] = (temp[x][y + 1] + dp[x][y]) % MOD;
+                }
+            }
+        }
+        // copy temp to dp
+        for (int x = 0; x < m; x++)
+            for (int y = 0; y < n; y++)
+                dp[x][y] = temp[x][y];
+    }
+
+    return count;
+}
+
+int main() {
+    int m = 2, n = 2, N = 2, i = 0, j = 0;
+    printf("Output: %d\n", findPaths(m, n, N, i, j));
+
+    m = 1, n = 3, N = 3, i = 0, j = 1;
+    printf("Output: %d\n", findPaths(m, n, N, i, j));
+
+    return 0;
+}

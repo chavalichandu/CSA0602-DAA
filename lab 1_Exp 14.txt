@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+long long uniquePaths(int m, int n) {
+    long long res = 1;
+    int k = m < n ? m - 1 : n - 1;  // choose the smaller to reduce multiplications
+    for (int i = 1; i <= k; i++) {
+        res = res * (m + n - 2 - i + 1) / i;
+    }
+    return res;
+}
+
+int main() {
+    int m1 = 7, n1 = 3;
+    printf("Input: m=%d, n=%d -> Output: %lld\n", m1, n1, uniquePaths(m1, n1)); // Expected 28
+
+    int m2 = 3, n2 = 2;
+    printf("Input: m=%d, n=%d -> Output: %lld\n", m2, n2, uniquePaths(m2, n2)); // Expected 3
+
+    return 0;
+}

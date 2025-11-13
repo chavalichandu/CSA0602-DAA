@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+long long robLinear(long long nums[], int start, int end) {
+    // returns max loot for linear houses from start..end (inclusive)
+    if (start > end) return 0;
+    long long prev2 = 0; // dp[i-2]
+    long long prev1 = 0; // dp[i-1]
+    for (int i = start; i <= end; ++i) {
+        long long take = nums[i] + prev2;
+        long long notake = prev1;
+        long long cur = (take > notake) ? take : notake;
+        prev2 = prev1;
+        prev1 = cur;
+    }
+    return prev1;
+}
+
+long long rob(long long nums[], int n) {
+    if (n == 0) return 0;
+    if (n == 1) return nums[0];
+    // max of rob linear on [0..n-2] and [1..n-1]
+    long long a = robLinear(nums, 0, n - 2);
+    long long b = robLinear(nums, 1, n - 1);
+    return (a > b) ? a : b;
+}
+
+int main() {
+    // Example (i)
+    long long nums1[] = {2, 3, 2};
+    int n1 = sizeof(nums1) / sizeof(nums1[0]);
+    printf("Example (i) -> Maximum loot: %lld\n", rob(nums1, n1)); // expected 3
+
+    // Example (ii)
+    long long nums2[] = {1, 2, 3, 1};
+    int n2 = sizeof(nums2) / sizeof(nums2[0]);
+    printf("Example (ii) -> Maximum loot: %lld\n", rob(nums2, n2)); // expected 4
+
+    return 0;
+}

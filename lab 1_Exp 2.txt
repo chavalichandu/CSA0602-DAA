@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+int main() {
+    int nums1[] = {4,3,2,3,1};
+    int nums2[] = {2,2,5,2,3,6};
+    int n1 = 5, n2 = 6;
+    int answer1 = 0, answer2 = 0;
+
+    // Count for nums1
+    for (int i = 0; i < n1; i++) {
+        for (int j = 0; j < n2; j++) {
+            if (nums1[i] == nums2[j]) {
+                answer1++;
+                break;
+            }
+        }
+    }
+
+    // Count for nums2
+    for (int i = 0; i < n2; i++) {
+        for (int j = 0; j < n1; j++) {
+            if (nums2[i] == nums1[j]) {
+                answer2++;
+                break;
+            }
+        }
+    }
+
+    printf("Output: [%d, %d]\n", answer1, answer2);
+    return 0;
+}

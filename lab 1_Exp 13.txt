@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int climbStairs(int n) {
+    if (n <= 2)
+        return n;
+    int first = 1, second = 2, next;
+    for (int i = 3; i <= n; i++) {
+        next = first + second;
+        first = second;
+        second = next;
+    }
+    return second;
+}
+
+int main() {
+    int n1 = 4;
+    printf("Input: n=%d -> Output: %d\n", n1, climbStairs(n1)); // Expected 5
+
+    int n2 = 3;
+    printf("Input: n=%d -> Output: %d\n", n2, climbStairs(n2)); // Expected 3
+
+    return 0;
+}
