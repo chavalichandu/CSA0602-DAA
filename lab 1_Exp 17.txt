@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+double champagneTower(int poured, int query_row, int query_glass) {
+    double tower[101][101] = {0.0};  // up to 100 rows
+    tower[0][0] = poured;
+
+    for (int i = 0; i <= query_row; i++) {
+        for (int j = 0; j <= i; j++) {
+            if (tower[i][j] > 1.0) {
+                double excess = (tower[i][j] - 1.0) / 2.0;
+                tower[i + 1][j] += excess;
+                tower[i + 1][j + 1] += excess;
+                tower[i][j] = 1.0;  // glass can hold only 1 cup
+            }
+        }
+    }
+
+    return tower[query_row][query_glass];
+}
+
+int main() {
+    int poured, row, glass;
+
+    // Example 1
+    poured = 1; row = 1; glass = 1;
+    printf("Input: poured=%d, query_row=%d, query_glass=%d\n", poured, row, glass);
+    printf("Output: %.5f\n\n", champagneTower(poured, row, glass));
+
+    // Example 2
+    poured = 2; row = 1; glass = 1;
+    printf("Input: poured=%d, query_row=%d, query_glass=%d\n", poured, row, glass);
+    printf("Output: %.5f\n", champagneTower(poured, row, glass));
+
+    return 0;
+}
